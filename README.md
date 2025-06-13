@@ -35,9 +35,9 @@ The final output is a clean CSV file with each free-text entry mapped to its cor
 ### 3. Apply Fuzzy Matching
 - Implement a fuzzy-string matching algorithm (e.g., Levenshtein distance or token set ratio).
 - For each free-text entry, calculate similarity scores to all entries in the reference dataset.
-- Retain the best match(es) based on a predefined similarity threshold.
+- Retain the best match(es) based on a predefined similarity threshold (0.5 Jaccard is the default).
 
-### 4. Manual Review and Rule-Based Refinement
+### 4. Rule-Based Refinement
 - Review low-confidence matches (below threshold) manually or flag them for clinician review.
 - Apply additional matching logic, such as:
   - Token reordering (e.g., "paracetamol 500 mg" vs. "500 mg paracetamol")
@@ -47,22 +47,18 @@ The final output is a clean CSV file with each free-text entry mapped to its cor
 ### 5. Output Cleaned and Mapped Data
 - Create a final output CSV file that includes:
   - Original free-text entry
-  - Best-matched product/substance
   - Matched ATC code
+  - Matched substance/drug-name/entry
   - Matching confidence score
-  - Flag for manual review (if applicable)
 
-### 6. Document and Publish
-- Share the cleaned API and fuzzy matching approach publicly (excluding patient-level data).
-- Maintain a versioned changelog for transparency.
 
 ## Example Output Format
 
-| FreeTextEntry         | MatchedSubstance | ATCCode  | MatchScore | ManualReview |
-|-----------------------|------------------|----------|------------|---------------|
-| "Alvedon 500mg"       | Paracetamol      | N02BE01  | 0.95       | No            |
-| "Panodil"             | Paracetamol      | N02BE01  | 0.92       | No            |
-| "alvedoon 500"        | Paracetamol      | N02BE01  | 0.78       | Yes           |
+| FreeTextEntry         | MatchedSubstance | ATCCode  | MatchScore |
+|-----------------------|------------------|----------|------------|
+| "Alvedon 500mg"       | Paracetamol      | N02BE01  | 0.95       |
+| "Panodil"             | Paracetamol      | N02BE01  | 0.92       |
+| "alvedoon 500"        | Paracetamol      | N02BE01  | 0.78       |
 
 ## Contact
 
